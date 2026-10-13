@@ -3,109 +3,675 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tienld235 — Android games and apps</title>
+<title>TieChan — Cute games & handy apps for Android</title>
+<meta name="description" content="Cute offline games and handy apps for Android: puzzles, arcade, party games, daily tarot and ID photos. Free on Google Play.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TieChan">
+<meta property="og:url" content="https://tienld235.github.io/">
+<meta property="og:title" content="TieChan — Cute games & handy apps for Android">
+<meta property="og:description" content="Puzzles, arcade, party games and handy apps. Free on Google Play, most play offline.">
+<meta property="og:image" content="https://tienld235.github.io/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0c0b1d">
+<link rel="icon" href="assets/tiechan-icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/tiechan-icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/tiechan-icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #F4FAFC; color: #0B3B52; }
-  main { max-width: 640px; margin: 0 auto; padding: 40px 20px; }
-  h1 { font-size: 26px; margin: 0 0 6px; }
-  p.sub { margin: 0 0 28px; color: #35657C; }
-  .app { background: #fff; border: 1px solid #D6E6EC; border-radius: 14px; padding: 16px 18px; margin-bottom: 14px; }
-  .app h2 { font-size: 18px; margin: 0 0 4px; }
-  .app p { margin: 0 0 10px; color: #35657C; font-size: 15px; }
-  .app a { color: #00768F; font-size: 14px; }
-  footer { margin-top: 28px; font-size: 13px; color: #6A8C9C; }
+  :root {
+    --bg: #0c0b1d;
+    --bg-2: #12112a;
+    --card: #1a1938;
+    --card-hi: #24224d;
+    --line: rgba(255, 255, 255, .08);
+    --text: #f4f3ff;
+    --muted: #a6a3cc;
+    --accent: #7c5cff;
+    --accent-2: #ff5fa2;
+    --play: #18c27a;
+    --gold: #ffc83d;
+    --radius: 16px;
+    --ring: 0 0 0 2px var(--accent), 0 10px 40px -8px rgba(124, 92, 255, .7);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 500 16px/1.5 "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(600px 400px at 10% -5%, rgba(124, 92, 255, .28), transparent 70%),
+      radial-gradient(500px 380px at 95% 10%, rgba(255, 95, 162, .18), transparent 70%),
+      radial-gradient(700px 500px at 50% 110%, rgba(24, 194, 122, .10), transparent 70%);
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  h1, h2, h3 { font-family: "Baloo 2", "Nunito", sans-serif; line-height: 1.1; margin: 0; }
+  :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 8px; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(12, 11, 29, .78); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar .wrap { display: flex; align-items: center; gap: 18px; height: 68px; }
+  .logo { display: flex; align-items: center; gap: 10px; font: 900 25px/1 "Nunito", sans-serif; letter-spacing: -.01em; flex-shrink: 0; }
+  .logo-mark { width: 40px; height: 40px; border-radius: 11px; box-shadow: 0 6px 20px -6px rgba(255, 95, 162, .7); }
+  /* The "i" in TieChan: a drawn stem with a bow tie for the dot (same as the logo in brand/) */
+  .wm-i { position: relative; display: inline-block; width: .19em; height: .49em; margin: 0 .055em; border-radius: .1em; background: currentColor; }
+  .wm-i svg { position: absolute; left: 50%; bottom: .55em; width: .5em; height: .25em; transform: translateX(-50%) rotate(-8deg); }
+  .nav { display: flex; gap: 4px; }
+  .nav a {
+    padding: 8px 14px; border-radius: 999px; font-weight: 700; color: var(--muted);
+    transition: background .2s, color .2s;
+  }
+  .nav a:hover { color: var(--text); background: var(--card); }
+  .nav a.active { color: var(--text); background: var(--card-hi); }
+  .search {
+    margin-left: auto; position: relative; width: min(320px, 100%);
+  }
+  .search input {
+    width: 100%; height: 42px; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--bg-2); color: var(--text); padding: 0 16px 0 42px; font: inherit; font-weight: 600;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .search input::placeholder { color: var(--muted); }
+  .search input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(124, 92, 255, .25); }
+  .search svg { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 48px 0 28px; }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: 40px; align-items: center; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px;
+    background: rgba(124, 92, 255, .15); color: #c9bcff; font-weight: 800; font-size: 13px; letter-spacing: .04em; text-transform: uppercase;
+  }
+  .hero h1 { font-size: clamp(36px, 5vw, 58px); margin: 16px 0 14px; letter-spacing: -.01em; }
+  .hero h1 em {
+    font-style: normal; background: linear-gradient(90deg, #a48bff, var(--accent-2) 60%, var(--gold));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.lead { color: var(--muted); font-size: 18px; margin: 0 0 24px; max-width: 46ch; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+  .stats { display: flex; flex-wrap: wrap; gap: 10px; }
+  .stat {
+    display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 12px;
+    background: var(--card); border: 1px solid var(--line); font-weight: 700; font-size: 14px;
+  }
+  .stat b { font-family: "Baloo 2", sans-serif; font-size: 20px; color: var(--gold); line-height: 1; }
+
+  /* Featured carousel */
+  .featured { position: relative; border-radius: 22px; overflow: hidden; background: var(--card); border: 1px solid var(--line); box-shadow: 0 30px 80px -30px rgba(124, 92, 255, .6); }
+  .stage { position: relative; aspect-ratio: 1024 / 500; }
+  .infos { position: relative; height: 92px; }
+  .slide, .slide-info { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility .6s; cursor: pointer; }
+  .slide.on, .slide-info.on { opacity: 1; visibility: visible; z-index: 1; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; }
+  .slide-info { display: flex; align-items: center; gap: 14px; padding: 0 18px; }
+  .slide-info img { width: 56px; height: 56px; border-radius: 14px; box-shadow: 0 4px 14px rgba(0, 0, 0, .5); flex-shrink: 0; }
+  .slide-info h3 { font-size: 24px; }
+  .slide-info p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+  .slide-info .btn { margin-left: auto; }
+  .dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; gap: 6px; padding: 6px 8px; border-radius: 99px; background: rgba(12, 11, 29, .55); backdrop-filter: blur(6px); }
+  .dots button { width: 9px; height: 9px; border-radius: 99px; border: 0; padding: 0; background: rgba(255, 255, 255, .45); cursor: pointer; transition: width .3s, background .3s; }
+  .dots button.on { width: 26px; background: #fff; }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    height: 46px; padding: 0 20px; border-radius: 999px; border: 0; cursor: pointer;
+    font: 800 15px/1 "Nunito", sans-serif; white-space: nowrap;
+    transition: transform .15s, box-shadow .2s, background .2s, filter .2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), #9b6bff); color: #fff; box-shadow: 0 8px 24px -8px rgba(124, 92, 255, .9); }
+  .btn-play { background: #fff; color: #111; box-shadow: 0 8px 24px -10px rgba(255, 255, 255, .5); }
+  .btn-ghost { background: var(--card); color: var(--text); border: 1px solid var(--line); }
+  .btn-soon { background: transparent; color: var(--muted); border: 1px dashed rgba(255, 255, 255, .25); cursor: default; }
+  .btn-soon:hover { transform: none; }
+  .btn-ghost:hover { background: var(--card-hi); }
+  .btn-sm { height: 36px; padding: 0 14px; font-size: 13px; }
+  .play-ico { width: 16px; height: 16px; flex-shrink: 0; }
+
+  /* ---------- Sections ---------- */
+  section.shelf { padding: 34px 0 10px; }
+  .shelf-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  .shelf-head h2 { font-size: 34px; display: flex; align-items: center; gap: 12px; }
+  .shelf-head h2 .count {
+    font: 800 14px/1 "Nunito", sans-serif; padding: 6px 10px; border-radius: 999px;
+    background: var(--card-hi); color: var(--muted);
+  }
+  .shelf-head p { margin: 4px 0 0; color: var(--muted); }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .chip {
+    height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--bg-2); color: var(--muted); font: 700 14px/1 "Nunito", sans-serif; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; transition: all .2s;
+  }
+  .chip:hover { color: var(--text); border-color: rgba(255, 255, 255, .2); }
+  .chip.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .chip small { opacity: .6; font-weight: 800; }
+
+  /* ---------- Cards (CrazyGames-style) ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 22px; }
+  .card {
+    position: relative; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line);
+    overflow: hidden; cursor: pointer; display: flex; flex-direction: column;
+    transition: transform .25s cubic-bezier(.2, .9, .3, 1.3), box-shadow .25s, background .25s;
+    animation: pop .4s ease both;
+  }
+  .card:hover, .card:focus-visible { transform: translateY(-6px) scale(1.02); box-shadow: var(--ring); background: var(--card-hi); outline: none; }
+  @keyframes pop { from { opacity: 0; transform: translateY(12px); } }
+  .thumb { position: relative; aspect-ratio: 1024 / 500; overflow: hidden; background: var(--bg-2); }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+  .card:hover .thumb img { transform: scale(1.08); }
+  .thumb::after {
+    content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .3s;
+    background: linear-gradient(180deg, transparent 40%, rgba(12, 11, 29, .85));
+  }
+  .card:hover .thumb::after { opacity: 1; }
+  .hover-cta {
+    position: absolute; left: 50%; bottom: 12px; z-index: 2; transform: translate(-50%, 10px); opacity: 0;
+    padding: 7px 14px; border-radius: 999px; background: rgba(255, 255, 255, .95); color: #111;
+    font-weight: 800; font-size: 13px; transition: all .25s; white-space: nowrap;
+  }
+  .card:hover .hover-cta { opacity: 1; transform: translate(-50%, 0); }
+  .badge {
+    position: absolute; top: 10px; left: 10px; z-index: 2; padding: 4px 9px; border-radius: 8px;
+    font: 800 11px/1.2 "Nunito", sans-serif; letter-spacing: .06em; text-transform: uppercase;
+  }
+  .badge.new { background: var(--gold); color: #2a1d00; }
+  .badge.soon { background: rgba(12, 11, 29, .8); color: #fff; border: 1px solid rgba(255, 255, 255, .25); }
+  .card-body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .card-meta { display: flex; align-items: center; gap: 11px; }
+  .card-meta img { width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0; margin-top: -26px; border: 3px solid var(--card); box-shadow: 0 4px 10px rgba(0, 0, 0, .4); transition: border-color .25s; position: relative; z-index: 2; }
+  .card:hover .card-meta img { border-color: var(--card-hi); }
+  .card-meta h3 { font-size: 19px; }
+  .card-meta .genre { color: var(--muted); font-size: 13px; font-weight: 700; }
+  .card .tagline { margin: 0; color: #cfcdec; font-size: 14px; line-height: 1.45; flex: 1;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-actions { display: flex; gap: 8px; }
+  .card-actions .btn-play { flex: 1; }
+
+  .empty { grid-column: 1 / -1; text-align: center; padding: 40px 0; color: var(--muted); }
+  .empty b { display: block; font-size: 40px; }
+
+  /* ---------- Pagination ---------- */
+  .pager { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 28px 0 8px; flex-wrap: wrap; }
+  .pager button {
+    min-width: 42px; height: 42px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--line);
+    background: var(--bg-2); color: var(--text); font: 800 15px/1 "Nunito", sans-serif; cursor: pointer; transition: all .2s;
+  }
+  .pager button:hover:not(:disabled) { background: var(--card-hi); }
+  .pager button.on { background: var(--accent); border-color: var(--accent); box-shadow: 0 6px 18px -6px rgba(124, 92, 255, .9); }
+  .pager button:disabled { opacity: .35; cursor: default; }
+  .pager .info { width: 100%; text-align: center; color: var(--muted); font-size: 13px; font-weight: 700; margin-top: 2px; }
+
+  /* ---------- Why strip ---------- */
+  .why { margin: 46px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .why div { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  .why b { display: block; font: 800 18px/1.2 "Baloo 2", sans-serif; margin: 8px 0 4px; }
+  .why span { color: var(--muted); font-size: 14px; }
+  .why i { font-style: normal; font-size: 26px; }
+
+  footer { margin-top: 56px; border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; justify-content: space-between; }
+  footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
+  footer a:hover { color: var(--text); }
+
+  /* ---------- Detail dialog ---------- */
+  dialog {
+    width: min(760px, calc(100% - 32px)); max-height: calc(100% - 40px); padding: 0; border: 1px solid var(--line);
+    border-radius: 22px; background: var(--bg-2); color: var(--text); overflow: auto;
+    box-shadow: 0 40px 120px -20px rgba(0, 0, 0, .8);
+  }
+  dialog[open] { animation: dlg .3s cubic-bezier(.2, .9, .3, 1.2); }
+  @keyframes dlg { from { opacity: 0; transform: translateY(24px) scale(.96); } }
+  dialog::backdrop { background: rgba(6, 5, 18, .72); backdrop-filter: blur(6px); }
+  .d-cover { position: relative; aspect-ratio: 1024 / 500; }
+  .d-cover img { width: 100%; height: 100%; object-fit: cover; }
+  .d-cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, var(--bg-2)); }
+  .d-close {
+    position: absolute; top: 12px; right: 12px; z-index: 2; width: 40px; height: 40px; border-radius: 999px; border: 0;
+    background: rgba(12, 11, 29, .7); color: #fff; font-size: 22px; cursor: pointer; backdrop-filter: blur(6px);
+  }
+  .d-close:hover { background: rgba(12, 11, 29, .95); }
+  .d-body { padding: 0 26px 26px; margin-top: -44px; position: relative; z-index: 1; }
+  .d-head { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 14px; }
+  .d-head img { width: 84px; height: 84px; border-radius: 20px; border: 4px solid var(--bg-2); box-shadow: 0 8px 22px rgba(0, 0, 0, .5); }
+  .d-head h2 { font-size: 32px; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .tags span { padding: 3px 10px; border-radius: 999px; background: var(--card-hi); color: #d4cffa; font-size: 12px; font-weight: 800; }
+  .d-body p.desc { color: #d8d6f2; font-size: 16px; margin: 0 0 16px; }
+  .d-body ul { list-style: none; padding: 0; margin: 0 0 22px; display: grid; gap: 8px; }
+  .d-body li { display: flex; gap: 10px; align-items: flex-start; background: var(--card); border-radius: 12px; padding: 10px 14px; font-weight: 600; }
+  .d-body li::before { content: "★"; color: var(--gold); }
+  .d-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .d-more { margin-top: 26px; }
+  .d-more h4 { margin: 0 0 12px; font: 800 18px/1 "Baloo 2", sans-serif; color: var(--muted); }
+  .d-more .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .mini { border-radius: 12px; overflow: hidden; background: var(--card); cursor: pointer; border: 1px solid var(--line); transition: transform .2s, box-shadow .2s; }
+  .mini:hover { transform: translateY(-3px); box-shadow: var(--ring); }
+  .mini img { aspect-ratio: 1024 / 500; object-fit: cover; width: 100%; }
+  .mini span { display: block; padding: 7px 10px; font-weight: 800; font-size: 13px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .hero .wrap { grid-template-columns: 1fr; }
+    .why { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .nav a[data-nav="top"] { display: none; }
+    .nav a { padding: 8px 10px; }
+    .topbar .wrap { gap: 8px; }
+    .search { width: auto; flex: 1; min-width: 0; }
+    .search input { padding-left: 38px; }
+    .hero { padding-top: 28px; }
+    .slide-info .btn { display: none; }
+    .shelf-head h2 { font-size: 28px; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .d-body { padding: 0 18px 20px; }
+    .d-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .d-head img { width: 72px; height: 72px; }
+    .d-head h2 { font-size: 28px; }
+    .d-more .row { grid-template-columns: repeat(2, 1fr); }
+    .d-more .row .mini:nth-child(3) { display: none; }
+  }
+  @media (max-width: 480px) {
+    .wrap { padding: 0 16px; }
+    .logo > span:last-child { display: none; }
+    .why { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <h1>tienld235</h1>
-  <p class="sub">Small offline games and apps for Android.</p>
 
-  <div class="app">
-    <h2>Jumpy Hop</h2>
-    <p>One-tap arcade: jump over obstacles, collect coins, unlock characters and scenes.</p>
-    <a href="https://tienld235.github.io/jumpy-hop-privacy/">Privacy policy</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="TieChan home">
+      <img class="logo-mark" src="assets/tiechan-icon.svg" alt="" width="40" height="40">
+      <span aria-hidden="true">T<span class="wm-i"><svg viewBox="-100 -48 200 96"><path d="M0 0 L-78 -38 Q-96 0 -78 38 Z M0 0 L78 -38 Q96 0 78 38 Z" fill="#ffc83d" stroke="#ffc83d" stroke-width="16" stroke-linejoin="round"/><path d="M-56 -20 Q-64 0 -56 20 M56 -20 Q64 0 56 20" stroke="#e39a0b" stroke-width="7" stroke-linecap="round" fill="none"/><rect x="-22" y="-20" width="44" height="40" rx="12" fill="#f2a814"/></svg></span>eChan</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#top" class="active" data-nav="top">Home</a>
+      <a href="#games" data-nav="games">Games</a>
+      <a href="#apps" data-nav="apps">Apps</a>
+    </nav>
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search games and apps" aria-label="Search games and apps" autocomplete="off">
+    </label>
   </div>
+</header>
 
-  <div class="app">
-    <h2>Tiny Ocean</h2>
-    <p>A calm merge puzzle: match sea creatures and grow a single bubble into a whale.</p>
-    <a href="https://tienld235.github.io/tiny-ocean-privacy/">Privacy policy</a>
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">🎮 Free on Google Play</span>
+        <h1>Cute little games &amp; <em>handy apps</em> for your Android</h1>
+        <p class="lead">Quick to learn, easy to love, and most of them play offline. Puzzles, arcade, party games and smart everyday tools, all made by one indie developer.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#games">Browse games</a>
+          <a class="btn btn-ghost" href="#apps">See apps</a>
+        </div>
+        <div class="stats">
+          <span class="stat"><b id="statGames">12</b> games</span>
+          <span class="stat"><b id="statApps">2</b> apps</span>
+          <span class="stat">📶 Plays offline</span>
+          <span class="stat">🌍 5 languages</span>
+        </div>
+      </div>
+      <div class="featured" id="featured" aria-roledescription="carousel" aria-label="Featured">
+        <div class="stage" id="stage">
+          <div class="dots" id="dots" aria-label="Choose featured item"></div>
+        </div>
+        <div class="infos" id="infos"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="shelf" id="games" aria-labelledby="gamesTitle">
+    <div class="wrap">
+      <div class="shelf-head">
+        <div>
+          <h2 id="gamesTitle">🎮 Games <span class="count" id="gamesCount"></span></h2>
+          <p>Bite-size fun for coffee breaks, commutes and game nights.</p>
+        </div>
+      </div>
+      <div class="chips" id="gameChips" role="group" aria-label="Filter games by genre"></div>
+      <div class="grid" id="gamesGrid"></div>
+      <nav class="pager" id="gamesPager" aria-label="Games pages"></nav>
+    </div>
+  </section>
+
+  <section class="shelf" id="apps" aria-labelledby="appsTitle">
+    <div class="wrap">
+      <div class="shelf-head">
+        <div>
+          <h2 id="appsTitle">✨ Apps <span class="count" id="appsCount"></span></h2>
+          <p>Small tools that do one thing well, and keep your data on your phone.</p>
+        </div>
+      </div>
+      <div class="grid" id="appsGrid"></div>
+      <nav class="pager" id="appsPager" aria-label="Apps pages"></nav>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="why">
+      <div><i>📴</i><b>Offline friendly</b><span>Play on the plane, the subway, anywhere.</span></div>
+      <div><i>👆</i><b>Learn in seconds</b><span>One tap or one swipe is all it takes.</span></div>
+      <div><i>🔒</i><b>Privacy first</b><span>No sign-up. Clear privacy policy for every title.</span></div>
+      <div><i>💜</i><b>Made with care</b><span>Hand-tuned levels and regular updates.</span></div>
+    </div>
   </div>
-
-  <div class="app">
-    <h2>Pixel Grove</h2>
-    <p>Nonogram puzzles that reveal pixel art, level by level.</p>
-    <a href="https://tienld235.github.io/pixel-grove-privacy/">Privacy policy</a>
-  </div>
-
-  <div class="app">
-    <h2>Chubby Zoo</h2>
-    <p>A calm animal sorting puzzle: fill each pen with one species, collect 20 animals, unlock six zoo themes.</p>
-    <a href="https://tienld235.github.io/chubby-zoo-privacy/">Privacy policy</a>
-  </div>
-
-  <div class="app">
-    <h2>Upsy Tower</h2>
-    <p>One-tap tower building: drop each floor right on top, reach the sky, unlock 16 block styles and 12 scenes.</p>
-    <a href="https://tienld235.github.io/upsy-tower-privacy/">Privacy policy</a>
-  </div>
-
-  <div class="app">
-    <h2>Pip Quest</h2>
-    <p>A turn-based dice roguelite: roll five dice, beat monsters, and build a different set of charms every run.</p>
-    <a href="https://tienld235.github.io/pip-quest-privacy/">Privacy policy</a>
-  </div>
-
-  <div class="app">
-    <h2>Beamy Bots</h2>
-    <p>A laser puzzle: aim your robot's eye, bounce the beam off walls and mirrors, and zap every bad bot in 70 levels.</p>
-    <a href="https://tienld235.github.io/beamy-bots-privacy/">Privacy policy</a>
-  </div>
-
-  <div class="app">
-    <h2>Bone Snatch</h2>
-    <p>An offline party game for one phone: take turns pulling bones from the bowl, and don't be the one the grumpy dog snaps at.</p>
-    <a href="https://tienld235.github.io/bone-snatch-privacy/">Privacy policy</a>
-  </div>
-
-  <div class="app">
-    <h2>Orbit Heroes</h2>
-    <p>One-tap space arcade: leap your tiny hero between spinning planets, dash through UFOs and meteors, beat the mothership boss and climb forever.</p>
-    <a href="https://tienld235.github.io/orbit-heroes-privacy/">Privacy policy</a>
-  </div>
-
-  <div class="app">
-    <h2>Sticker Blocks</h2>
-    <p>A relaxing 8×8 block puzzle: clear lines to earn sticker packs, peel and stick rare, gold and HOLO stickers, and fill 10 albums.</p>
-    <a href="https://tienld235.github.io/sticker-blocks-privacy/">Privacy policy</a>
-  </div>
-
-  <div class="app">
-    <h2>Furtune</h2>
-    <p>A daily tarot card acted by cute animals: flip one card each morning for a gentle message, try three-card spreads, and collect the full 78-card deck.</p>
-    <a href="https://tienld235.github.io/furtune-privacy/">Privacy policy</a>
-  </div>
-
-  <div class="app">
-    <h2>Yummy Loop</h2>
-    <p>A candy pixel puzzle: send hungry gummy frogs around the loop to eat every candy picture, one color at a time, across 100 pictures in 10 chapters.</p>
-    <a href="https://tienld235.github.io/yummy-loop-privacy/">Privacy policy</a>
-  </div>
-
-  <div class="app">
-    <h2>Pocket ID</h2>
-    <p>ID and passport photos on your phone: automatic background, the exact size for 15 document types, and a print-ready sheet. Works offline, and your photos never leave your phone.</p>
-    <a href="https://tienld235.github.io/pocket-id-privacy/">Privacy policy</a>
-  </div>
-
-  <div class="app">
-    <h2>Screw Safari</h2>
-    <p>A nuts &amp; bolts screw puzzle with a heart: unscrew the pins, sort every screw into its box, follow the clues and rescue 40 rare wild animals across 200 levels.</p>
-    <a href="https://tienld235.github.io/screw-safari-privacy/">Privacy policy</a>
-  </div>
-
-  <footer><a href="https://github.com/tienld235">github.com/tienld235</a></footer>
 </main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> TieChan Software · Cute games &amp; handy apps for Android</span>
+    <nav aria-label="Footer">
+      <a href="#games">Games</a>
+      <a href="#apps">Apps</a>
+      <a href="mailto:leductien1997123@gmail.com">Contact</a>
+      <a href="https://github.com/tienld235">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<dialog id="detail" aria-labelledby="dTitle"></dialog>
+
+<script>
+  // One entry per title. Add new ones at the top of their list: newest first.
+  // kind: "game" | "app". isNew: shows the NEW badge.
+  // live: true ONLY once the app is public on Google Play (production access granted after the
+  // 14-day closed test). Without it the card shows "Coming soon" and only the privacy link,
+  // because the Play page is a 404 for anyone outside the test.
+  const PRODUCTS = [
+    { slug: 'screw-safari', pkg: 'com.tien.screwsafari', kind: 'game', title: 'Screw Safari', genre: 'Puzzle', tags: ['Screw puzzle', 'Animals', 'Offline'], isNew: true,
+      tagline: 'Unscrew the pins, sort every screw and rescue rare wild animals.',
+      desc: 'A nuts & bolts screw puzzle with a heart: unscrew the pins, sort every screw into its box, follow the clues and rescue 40 rare wild animals across 200 levels.',
+      points: ['200 hand-made levels', '40 rare animals to rescue and collect', 'Relaxing, one tap at a time, fully offline'] },
+    { slug: 'yummy-loop', pkg: 'com.tien.yummyloop', kind: 'game', title: 'Yummy Loop', genre: 'Puzzle', tags: ['Color puzzle', 'Pixel art', 'Offline'], isNew: true,
+      tagline: 'Send hungry gummy frogs around the loop to eat every candy picture.',
+      desc: 'A candy pixel puzzle: send hungry gummy frogs around the loop to eat every candy picture, one color at a time, across 100 pictures in 10 chapters.',
+      points: ['100 candy pictures in 10 chapters', 'Plan your frogs, fill the benches wisely', 'Daily rewards'] },
+    { slug: 'sticker-blocks', pkg: 'com.tien.stickerblocks', kind: 'game', title: 'Sticker Blocks', genre: 'Puzzle', tags: ['Block puzzle', 'Collection', 'Offline'],
+      tagline: 'Clear lines, open sticker packs and fill your albums.',
+      desc: 'A relaxing 8×8 block puzzle: clear lines to earn sticker packs, peel and stick rare, gold and HOLO stickers, and fill 10 albums.',
+      points: ['Classic 8×8 block puzzle with combos', 'Rare, gold and shiny HOLO stickers', '10 albums that unlock new block styles'] },
+    { slug: 'orbit-heroes', pkg: 'com.tien.orbitheroes', kind: 'game', title: 'Orbit Heroes', genre: 'Arcade', tags: ['One tap', 'Endless', 'Space'],
+      tagline: 'Leap between spinning planets, dash through UFOs, beat the boss.',
+      desc: 'One-tap space arcade: leap your tiny hero between spinning planets, dash through UFOs and meteors, beat the mothership boss and climb forever.',
+      points: ['Tap to jump, tap again to dash', 'Boss fights against the mothership', 'Endless climb, no internet needed'] },
+    { slug: 'beamy-bots', pkg: 'com.tien.beamybots', kind: 'game', title: 'Beamy Bots', genre: 'Puzzle', tags: ['Laser puzzle', 'Robots', 'Offline'], live: true,
+      tagline: 'Aim, bounce the laser off mirrors and zap every bad bot.',
+      desc: "A laser puzzle: aim your robot's eye, bounce the beam off walls and mirrors, and zap every bad bot in 70 levels.",
+      points: ['70 levels, 1 to 3 stars each', 'Mirrors, metal walls and tricky bounces', 'Short levels, big “aha!” moments'] },
+    { slug: 'bone-snatch', pkg: 'com.tien.bonesnatch', kind: 'game', title: 'Bone Snatch', genre: 'Party', tags: ['Party game', 'Pass & play', 'Offline'], live: true, isNew: true,
+      tagline: "Pull bones from the bowl. Don't wake the grumpy dog!",
+      desc: "An offline party game for one phone: take turns pulling bones from the bowl, and don't be the one the grumpy dog snaps at.",
+      points: ['Pass-and-play on one phone', 'Perfect for friends and family nights', 'No internet needed'] },
+    { slug: 'upsy-tower', pkg: 'com.tien.upsytower', kind: 'game', title: 'Upsy Tower', genre: 'Arcade', tags: ['One tap', 'Stacking', 'Offline'], live: true,
+      tagline: 'Drop each floor right on top and build all the way to the sky.',
+      desc: 'One-tap tower building: drop each floor right on top, reach the sky, unlock 16 block styles and 12 scenes.',
+      points: ['Perfect drops make your tower grow back', '16 block styles and 12 scenes', 'Daily gifts'] },
+    { slug: 'chubby-zoo', pkg: 'com.tien.chubbyzoo', kind: 'game', title: 'Chubby Zoo', genre: 'Puzzle', tags: ['Sorting puzzle', 'Animals', 'Calm'], live: true,
+      tagline: 'Fill each pen with one species and grow your zoo.',
+      desc: 'A calm animal sorting puzzle: fill each pen with one species, collect 20 animals, unlock six zoo themes.',
+      points: ['20 chubby animals to collect', 'Six zoo themes', 'Calm, no timers'] },
+    { slug: 'pip-quest', pkg: 'com.tien.pipquest', kind: 'game', title: 'Pip Quest', genre: 'Strategy', tags: ['Dice', 'Roguelite', 'Turn-based'], live: true,
+      tagline: 'Roll five dice, beat monsters, build a new charm set every run.',
+      desc: 'A turn-based dice roguelite: roll five dice, beat monsters, and build a different set of charms every run.',
+      points: ['3 floors, 18 monsters', '30 charms and 7 special dice', 'Every run plays differently'] },
+    { slug: 'pixel-grove', pkg: 'com.tien.pixelgrove', kind: 'game', title: 'Pixel Grove', genre: 'Puzzle', tags: ['Nonogram', 'Pixel art', 'Logic'], live: true,
+      tagline: 'Solve nonogram puzzles and reveal pixel art, level by level.',
+      desc: 'Nonogram puzzles that reveal pixel art, level by level.',
+      points: ['204 levels in 17 chapters', 'Every solved picture joins your collection', 'Pure logic, no guessing'] },
+    { slug: 'tiny-ocean', pkg: 'com.tien.tinyocean', kind: 'game', title: 'Tiny Ocean', genre: 'Puzzle', tags: ['Merge', 'Sea life', 'Calm'], live: true,
+      tagline: 'Merge sea creatures and grow a single bubble into a whale.',
+      desc: 'A calm merge puzzle: match sea creatures and grow a single bubble into a whale.',
+      points: ['Ten stages from bubble to whale', 'Simple to learn, hard to master', 'Calm ocean vibes'] },
+    { slug: 'jumpy-hop', pkg: 'com.tien.jumpyhop', kind: 'game', title: 'Jumpy Hop', genre: 'Arcade', tags: ['One tap', 'Runner', 'Offline'], live: true,
+      tagline: 'Tap to hop over obstacles, collect coins, unlock friends.',
+      desc: 'One-tap arcade: jump over obstacles, collect coins, unlock characters and scenes.',
+      points: ['One-tap controls', 'Unlock characters and scenes', 'Daily check-in rewards'] },
+
+    { slug: 'pocket-id', pkg: 'com.tien.pocketid', kind: 'app', title: 'Pocket ID', genre: 'Photography', tags: ['ID photo', 'Passport', 'Private'], isNew: true,
+      tagline: 'ID and passport photos at home, the exact size for 15 documents.',
+      desc: 'ID and passport photos on your phone: automatic background, the exact size for 15 document types, and a print-ready sheet. Works offline, and your photos never leave your phone.',
+      points: ['Automatic background removal', 'Exact sizes for 15 document types', 'Print-ready 4×6 sheet, 300 DPI', 'Works offline. Photos never leave your phone'] },
+    { slug: 'furtune', pkg: 'com.tien.furtune', kind: 'app', title: 'Furtune', genre: 'Entertainment', tags: ['Daily tarot', 'Cute animals', 'Offline'],
+      tagline: 'A daily tarot card acted by cute animals, with a gentle message.',
+      desc: 'A daily tarot card acted by cute animals: flip one card each morning for a gentle message, try three-card spreads, and collect the full 78-card deck.',
+      points: ['One card each morning', 'Three-card spreads by topic', 'Collect all 78 cards, including HOLO ones'] },
+  ];
+
+  // Page size follows the grid so the last row is full: 4 columns → 8, 3 → 9, 2 → 6, 1 → 6
+  function pageSize() {
+    const cols = getComputedStyle(document.getElementById('gamesGrid')).gridTemplateColumns.split(' ').length;
+    return cols >= 4 ? cols * 2 : cols === 1 ? 6 : cols * 3;
+  }
+  let PAGE_SIZE = 8;
+  // Carousel: the newest public titles, so every slide can be installed right away
+  const FEATURED = PRODUCTS.filter(p => p.live).slice(0, 5).map(p => p.slug);
+  const BASE = 'https://tienld235.github.io/';
+
+  const playUrl = p => 'https://play.google.com/store/apps/details?id=' + p.pkg;
+  const privacyUrl = p => BASE + p.slug + '-privacy/';
+  const cover = p => 'assets/' + p.slug + '-cover.webp';
+  const icon = p => 'assets/' + p.slug + '-icon.webp';
+  const bySlug = Object.fromEntries(PRODUCTS.map(p => [p.slug, p]));
+  const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  const PLAY_ICON = '<svg class="play-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00d7fe" d="M3.6 2.3 13.4 12l-9.8 9.7c-.3-.2-.5-.6-.5-1V3.3c0-.4.2-.8.5-1Z"/><path fill="#ffce00" d="m16.8 8.6 3.4 2c.9.5.9 1.8 0 2.3l-3.4 2L13.4 12l3.4-3.4Z"/><path fill="#00f076" d="M3.6 2.3c.4-.2.9-.2 1.3 0l11.9 6.3-3.4 3.4-9.8-9.7Z"/><path fill="#ff3a44" d="m13.4 12 3.4 3.4-11.9 6.3c-.4.2-.9.2-1.3 0l9.8-9.7Z"/></svg>';
+
+  function playButton(p, size, label = 'Google Play') {
+    return p.live
+      ? `<a class="btn btn-play ${size}" href="${playUrl(p)}" target="_blank" rel="noopener">${PLAY_ICON} ${label}</a>`
+      : `<span class="btn btn-soon ${size}">Coming soon</span>`;
+  }
+
+  function cardHtml(p) {
+    const badge = !p.live ? '<span class="badge soon">Coming soon</span>' : p.isNew ? '<span class="badge new">New</span>' : '';
+    return `<article class="card" tabindex="0" data-slug="${p.slug}" aria-label="${esc(p.title)}, ${esc(p.genre)}">
+      <div class="thumb">
+        <img src="${cover(p)}" alt="" loading="lazy" width="1024" height="500">
+        ${badge}<span class="hover-cta">View details</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <img src="${icon(p)}" alt="" width="44" height="44" loading="lazy">
+          <div><h3>${esc(p.title)}</h3><div class="genre">${esc(p.genre)} · ${esc(p.tags[0])}</div></div>
+        </div>
+        <p class="tagline">${esc(p.tagline)}</p>
+        <div class="card-actions">
+          ${playButton(p, 'btn-sm')}
+          <a class="btn btn-ghost btn-sm" href="${privacyUrl(p)}" target="_blank" rel="noopener">Privacy</a>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  // ---------- Shelves with filter, search and pagination ----------
+  const state = { q: '', genre: 'All', page: { game: 1, app: 1 } };
+
+  function matches(p) {
+    if (!state.q) return true;
+    const hay = (p.title + ' ' + p.genre + ' ' + p.tags.join(' ') + ' ' + p.tagline).toLowerCase();
+    return state.q.split(/\s+/).every(w => hay.includes(w));
+  }
+
+  function renderShelf(kind) {
+    const grid = document.getElementById(kind + 'sGrid');
+    const pager = document.getElementById(kind + 'sPager');
+    let items = PRODUCTS.filter(p => p.kind === kind && matches(p));
+    if (kind === 'game' && state.genre !== 'All') items = items.filter(p => p.genre === state.genre);
+    const pages = Math.max(1, Math.ceil(items.length / PAGE_SIZE));
+    const page = Math.min(state.page[kind], pages);
+    state.page[kind] = page;
+    const start = (page - 1) * PAGE_SIZE;
+    const slice = items.slice(start, start + PAGE_SIZE);
+
+    grid.innerHTML = slice.length
+      ? slice.map(cardHtml).join('')
+      : '<div class="empty"><b>🔍</b>Nothing here matches “' + esc(state.q) + '”.</div>';
+    grid.querySelectorAll('.card').forEach((el, i) => el.style.animationDelay = (i * 40) + 'ms');
+    document.getElementById(kind + 'sCount').textContent = items.length;
+
+    if (pages <= 1) { pager.innerHTML = ''; return; }
+    let html = `<button data-p="${page - 1}" ${page === 1 ? 'disabled' : ''} aria-label="Previous page">‹</button>`;
+    for (let i = 1; i <= pages; i++) html += `<button data-p="${i}" class="${i === page ? 'on' : ''}" ${i === page ? 'aria-current="page"' : ''}>${i}</button>`;
+    html += `<button data-p="${page + 1}" ${page === pages ? 'disabled' : ''} aria-label="Next page">›</button>`;
+    html += `<div class="info">Showing ${start + 1}–${start + slice.length} of ${items.length}</div>`;
+    pager.innerHTML = html;
+  }
+
+  function renderChips() {
+    const games = PRODUCTS.filter(p => p.kind === 'game');
+    const genres = ['All', ...new Set(games.map(p => p.genre))];
+    document.getElementById('gameChips').innerHTML = genres.map(g => {
+      const n = g === 'All' ? games.length : games.filter(p => p.genre === g).length;
+      return `<button class="chip ${g === state.genre ? 'on' : ''}" data-genre="${g}" aria-pressed="${g === state.genre}">${g} <small>${n}</small></button>`;
+    }).join('');
+  }
+
+  function renderAll() { renderShelf('game'); renderShelf('app'); }
+
+  document.getElementById('gameChips').addEventListener('click', e => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    state.genre = b.dataset.genre; state.page.game = 1;
+    renderChips(); renderShelf('game');
+  });
+  ['game', 'app'].forEach(kind => {
+    document.getElementById(kind + 'sPager').addEventListener('click', e => {
+      const b = e.target.closest('button[data-p]'); if (!b || b.disabled) return;
+      state.page[kind] = +b.dataset.p; renderShelf(kind);
+      document.getElementById(kind + 's').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  document.getElementById('q').addEventListener('input', e => {
+    state.q = e.target.value.trim().toLowerCase(); state.page = { game: 1, app: 1 }; renderAll();
+  });
+
+  // Cards: click anywhere except the buttons opens the detail view
+  document.addEventListener('click', e => {
+    if (e.target.closest('a')) return;
+    const c = e.target.closest('[data-slug]');
+    if (c) openDetail(c.dataset.slug);
+  });
+  document.addEventListener('keydown', e => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.card')) { e.preventDefault(); openDetail(e.target.dataset.slug); }
+  });
+
+  // ---------- Detail dialog (deep link: #/slug) ----------
+  const dlg = document.getElementById('detail');
+  function openDetail(slug, fromHash) {
+    const p = bySlug[slug]; if (!p) return;
+    const more = PRODUCTS.filter(x => x.kind === p.kind && x.slug !== p.slug)
+      .sort((a, b) => (b.genre === p.genre) - (a.genre === p.genre)).slice(0, 3);
+    dlg.innerHTML = `
+      <div class="d-cover"><img src="${cover(p)}" alt="${esc(p.title)} cover art"><button class="d-close" aria-label="Close">×</button></div>
+      <div class="d-body">
+        <div class="d-head">
+          <img src="${icon(p)}" alt="" width="84" height="84">
+          <div><h2 id="dTitle">${esc(p.title)}</h2>
+            <div class="tags"><span>${p.kind === 'game' ? 'Game' : 'App'} · ${esc(p.genre)}</span>${p.tags.map(t => '<span>' + esc(t) + '</span>').join('')}</div></div>
+        </div>
+        <p class="desc">${esc(p.desc)}</p>
+        <ul>${p.points.map(t => '<li>' + esc(t) + '</li>').join('')}</ul>
+        <div class="d-actions">
+          ${playButton(p, '', 'Get it on Google Play')}
+          <a class="btn btn-ghost" href="${privacyUrl(p)}" target="_blank" rel="noopener">🔒 Privacy policy</a>
+        </div>
+        ${more.length ? `<div class="d-more"><h4>More ${p.kind === 'game' ? 'games' : 'apps'} you might like</h4><div class="row">
+          ${more.map(m => `<div class="mini" data-slug="${m.slug}" tabindex="0"><img src="${cover(m)}" alt="" loading="lazy"><span>${esc(m.title)}</span></div>`).join('')}
+        </div></div>` : ''}
+      </div>`;
+    dlg.querySelector('.d-close').onclick = () => dlg.close();
+    dlg.querySelectorAll('.mini').forEach(m => m.onkeydown = e => { if (e.key === 'Enter') openDetail(m.dataset.slug); });
+    if (!dlg.open) dlg.showModal();
+    dlg.scrollTop = 0;
+    if (!fromHash) history.replaceState(null, '', '#/' + slug);
+  }
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('close', () => { if (location.hash.startsWith('#/')) history.replaceState(null, '', location.pathname); });
+  function fromHash() {
+    const m = location.hash.match(/^#\/([\w-]+)/);
+    if (m) openDetail(m[1], true);
+  }
+  window.addEventListener('hashchange', fromHash);
+
+  // ---------- Featured carousel ----------
+  const feat = document.getElementById('featured');
+  const dots = document.getElementById('dots');
+  let cur = 0, timer;
+  const stage = document.getElementById('stage');
+  const infos = document.getElementById('infos');
+  FEATURED.forEach((slug, i) => {
+    const p = bySlug[slug];
+    const on = i === 0 ? ' on' : '';
+    const s = document.createElement('div');
+    s.className = 'slide' + on;
+    s.dataset.slug = slug;
+    s.innerHTML = `<img src="${cover(p)}" alt="${esc(p.title)}">`;
+    stage.insertBefore(s, dots);
+    const info = document.createElement('div');
+    info.className = 'slide-info' + on;
+    info.dataset.slug = slug;
+    info.innerHTML = `<img src="${icon(p)}" alt="">
+        <div><h3>${esc(p.title)}</h3><p>${esc(p.tagline)}</p></div>
+        ${playButton(p, 'btn-sm', 'Get it')}`;
+    infos.appendChild(info);
+    const d = document.createElement('button');
+    d.setAttribute('aria-label', 'Show ' + p.title);
+    if (!i) d.className = 'on';
+    d.onclick = e => { e.stopPropagation(); go(i); };
+    dots.appendChild(d);
+  });
+  function go(i) {
+    const slides = stage.querySelectorAll('.slide');
+    const set = on => [slides[cur], infos.children[cur], dots.children[cur]].forEach(el => el.classList.toggle('on', on));
+    set(false);
+    cur = (i + slides.length) % slides.length;
+    set(true);
+    clearInterval(timer); timer = setInterval(() => go(cur + 1), 5000);
+  }
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(() => go(cur + 1), 5000);
+  feat.addEventListener('mouseenter', () => clearInterval(timer));
+  feat.addEventListener('mouseleave', () => { clearInterval(timer); timer = setInterval(() => go(cur + 1), 5000); });
+
+  // ---------- Nav highlight ----------
+  const navLinks = document.querySelectorAll('.nav a');
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) navLinks.forEach(a => a.classList.toggle('active', a.dataset.nav === (en.target.classList.contains('hero') ? 'top' : en.target.id)));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('.hero, #games, #apps').forEach(s => io.observe(s));
+
+  document.getElementById('statGames').textContent = PRODUCTS.filter(p => p.kind === 'game').length;
+  document.getElementById('statApps').textContent = PRODUCTS.filter(p => p.kind === 'app').length;
+  document.getElementById('year').textContent = new Date().getFullYear();
+  renderChips(); PAGE_SIZE = pageSize(); renderAll(); fromHash();
+  addEventListener('resize', () => {
+    const n = pageSize();
+    if (n !== PAGE_SIZE) { PAGE_SIZE = n; state.page = { game: 1, app: 1 }; renderAll(); }
+  });
+</script>
 </body>
 </html>
