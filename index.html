@@ -399,7 +399,8 @@
 
 <script>
   // One entry per title. Add new ones at the top of their list: newest first.
-  // kind: "game" | "app". isNew: shows the NEW badge.
+  // kind: "game" | "app". isNew: shows the NEW badge. promo: true puts an APP (not a game) in the in-game "More games" list too.
+  // After changing live / promo / an icon: node tools/makeGamesFeed.cjs → games.json (read by the games, no new AAB needed).
   // live: true ONLY once the app is public on Google Play (production access granted after the
   // 14-day closed test). Without it the card shows "Coming soon" and only the privacy link,
   // because the Play page is a 404 for anyone outside the test.
@@ -493,7 +494,7 @@
       tagline: 'ID and passport photos at home, the exact size for 15 documents.',
       desc: 'ID and passport photos on your phone: automatic background, the exact size for 15 document types, and a print-ready sheet. Works offline, and your photos never leave your phone.',
       points: ['Automatic background removal', 'Exact sizes for 15 document types', 'Print-ready 4×6 sheet, 300 DPI', 'Works offline. Photos never leave your phone'] },
-    { slug: 'furtune', pkg: 'com.tien.furtune', kind: 'app', title: 'Furtune', genre: 'Entertainment', tags: ['Daily tarot', 'Cute animals', 'Offline'], live: true, isNew: true,
+    { slug: 'furtune', pkg: 'com.tien.furtune', kind: 'app', title: 'Furtune', genre: 'Entertainment', tags: ['Daily tarot', 'Cute animals', 'Offline'], live: true, isNew: true, promo: true,
       tagline: 'A daily tarot card acted by cute animals, with a gentle message.',
       desc: 'A daily tarot card acted by cute animals: flip one card each morning for a gentle message, try three-card spreads, and collect the full 78-card deck.',
       points: ['One card each morning', 'Three-card spreads by topic', 'Collect all 78 cards, including HOLO ones'] },

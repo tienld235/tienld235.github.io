@@ -1,0 +1,79 @@
+{
+ "jumpy-hop": {
+  "en": "One tap to jump. Collect coins, unlock cute pets and colorful worlds.",
+  "vi": "Chạm một cái là nhảy. Ăn xu, mở khoá thú cưng và cảnh vật dễ thương.",
+  "es": "Un toque para saltar. Gana monedas y desbloquea mascotas y mundos.",
+  "pt": "Um toque para pular. Ganhe moedas e desbloqueie bichinhos e cenários.",
+  "id": "Ketuk untuk lompat. Kumpulkan koin, buka karakter dan latar lucu."
+ },
+ "tiny-ocean": {
+  "en": "Merge two to evolve. Grow a single bubble into a whale, ten species deep.",
+  "vi": "Ghép hai con thành một. Từ bọt nước tới cá voi, mười bậc tiến hoá.",
+  "es": "Une dos para evolucionar. De una burbuja a una ballena en diez especies.",
+  "pt": "Junte dois para evoluir. De uma bolha a uma baleia, dez espécies.",
+  "id": "Gabungkan dua untuk berevolusi. Dari gelembung sampai paus, sepuluh spesies."
+ },
+ "pixel-grove": {
+  "en": "Solve number grids to reveal pixel pictures. 204 levels, played offline.",
+  "vi": "Suy luận từ dãy số, tô đúng ô để hiện ra tranh pixel. 204 màn, chơi ngoại tuyến.",
+  "es": "Resuelve cuadrículas de números y descubre imágenes pixel. 204 niveles offline.",
+  "pt": "Resolva grades de números e revele imagens em pixel. 204 níveis, jogo offline.",
+  "id": "Pecahkan kotak angka untuk memunculkan gambar piksel. 204 level, main offline."
+ },
+ "pip-quest": {
+  "en": "Roll dice, beat monsters, build a set that never plays the same way twice.",
+  "vi": "Gieo xúc xắc, hạ quái, xây bộ của riêng bạn. Mỗi chuyến một kiểu chơi.",
+  "es": "Lanza dados, vence monstruos y crea un set distinto en cada partida.",
+  "pt": "Role dados, vença monstros e monte um set diferente a cada jornada.",
+  "id": "Lempar dadu, kalahkan monster, bangun set berbeda tiap petualangan."
+ },
+ "chubby-zoo": {
+  "en": "A calm animal sorting puzzle. Play offline.",
+  "vi": "Giải đố xếp thú thư giãn, chơi được ngoại tuyến.",
+  "es": "Un puzle relajante de animales. Juega sin conexión.",
+  "pt": "Um puzzle relaxante de animais. Jogue sem internet.",
+  "id": "Teka-teki santai susun hewan. Main tanpa internet."
+ },
+ "upsy-tower": {
+  "en": "Tap to drop each floor right on top. Stack perfectly and build to the sky!",
+  "vi": "Chạm đúng lúc để thả từng tầng. Xếp thật khít và xây tháp chạm tới trời!",
+  "es": "Toca para soltar cada piso justo encima. ¡Apila perfecto y llega al cielo!",
+  "pt": "Toque para soltar cada andar bem em cima. Empilhe perfeito e chegue ao céu!",
+  "id": "Ketuk untuk menjatuhkan tiap lantai tepat di atas. Susun pas sampai ke langit!"
+ },
+ "bone-snatch": {
+  "en": "Take turns pulling bones from a grumpy dog. One bone is cursed. Snap!",
+  "vi": "Lần lượt gắp xương từ bát của chú chó khó tính. Một khúc là khúc xui!",
+  "es": "Por turnos, roba huesos a un perro gruñón. Uno trae mala suerte. ¡Ñam!",
+  "pt": "Na sua vez, pegue um osso do cão ranzinza. Um osso dá azar. Nhac!",
+  "id": "Bergiliran ambil tulang dari anjing galak. Satu tulang itu sial. Hap!"
+ },
+ "orbit-heroes": {
+  "en": "Tap to leap between spinning planets. Dash, smash UFOs, climb to the stars!",
+  "vi": "Chạm để nhảy giữa các hành tinh xoay. Lao tới, phá UFO, leo lên những vì sao!",
+  "es": "Toca para saltar entre planetas que giran. ¡Acelera, destroza ovnis y sube!",
+  "pt": "Toque para pular entre planetas que giram. Arranque, destrua OVNIs e suba!",
+  "id": "Ketuk untuk melompat antar planet berputar. Melesat, hancurkan UFO, naik!"
+ },
+ "beamy-bots": {
+  "en": "Aim the laser eye, bounce the beam off mirrors and zap every enemy robot.",
+  "vi": "Ngắm mắt laze, cho tia nảy khỏi gương và hạ gọn từng con robot địch.",
+  "es": "Apunta el ojo láser, rebota el rayo en los espejos y acaba con los robots.",
+  "pt": "Mire o olho laser, ricocheteie o raio nos espelhos e derrube os robôs.",
+  "id": "Bidik mata laser, pantulkan sinar ke cermin, dan kalahkan robot musuh."
+ },
+ "sticker-blocks": {
+  "en": "Clear lines in a relaxing block puzzle and fill sticker albums.",
+  "vi": "Xếp khối nổ hàng thư giãn, mở gói sticker và dán đầy album sưu tập.",
+  "es": "Rompe líneas en un puzle de bloques relajante y llena álbumes de stickers.",
+  "pt": "Limpe linhas num quebra-cabeça de blocos relaxante e complete álbuns.",
+  "id": "Hancurkan baris di puzzle balok yang santai dan lengkapi album stiker."
+ },
+ "furtune": {
+  "en": "A daily tarot card acted by cute animals, with a gentle message for today.",
+  "vi": "Mỗi ngày một lá tarot do các bạn thú dễ thương thủ vai, kèm lời nhắn dịu dàng.",
+  "es": "Una carta de tarot al día interpretada por animales adorables, con un mensaje.",
+  "pt": "Uma carta de tarô por dia interpretada por bichinhos fofos, com uma mensagem.",
+  "id": "Satu kartu tarot setiap hari, diperankan hewan lucu, dengan pesan hangat."
+ }
+}
